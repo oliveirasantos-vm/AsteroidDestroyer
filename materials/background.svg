@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 25.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Camada_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 400 800" style="enable-background:new 0 0 400 800;" xml:space="preserve">
+	 viewBox="0 0 320 480" style="enable-background:new 0 0 320 480;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:url(#SVGID_1_);}
 </style>
-<radialGradient id="SVGID_1_" cx="200.7609" cy="198.5418" r="525.5092" gradientTransform="matrix(6.123234e-17 1 -1 6.123234e-17 599.8478 199.2391)" gradientUnits="userSpaceOnUse">
+<radialGradient id="SVGID_1_" cx="160.7609" cy="401.197" r="420.4074" gradientTransform="matrix(6.123234e-17 0.75 1 -4.592426e-17 -80.1522 119.4293)" gradientUnits="userSpaceOnUse">
 	<stop  offset="0" style="stop-color:#501887"/>
 	<stop  offset="1" style="stop-color:#101730"/>
 </radialGradient>
-<polygon class="st0" points="0,800 0,0 400,0 400,800 "/>
+<polygon class="st0" points="0,480 0,0 320,0 320,480 "/>
 </svg>
