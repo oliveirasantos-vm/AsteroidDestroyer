@@ -3,28 +3,21 @@ package Objects;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import Main.Game;
 
 public class Objects {
-	
-	public static BufferedImage players[] = {Game.spritesheet.getSprite(0, 0, 48, 48),
-											 Game.spritesheet.getSprite(48, 0, 48, 48),
-											 Game.spritesheet.getSprite(96, 0, 48, 48),
-											 Game.spritesheet.getSprite(0, 48, 48, 48),
-											 Game.spritesheet.getSprite(48, 48, 48, 48),
-											 Game.spritesheet.getSprite(96, 48, 48, 48),
-											 Game.spritesheet.getSprite(0, 96, 48, 48),
-											 Game.spritesheet.getSprite(48, 96, 48, 48),
-											 Game.spritesheet.getSprite(96, 96, 48, 48)};
-	
+		
 	protected double x;
 	protected double y;
 	protected int width;
 	protected int height;
 	protected BufferedImage sprite;
 	
-	public Objects(double x, double y, int widht, int height, BufferedImage sprite) {
+	public static Random rand = new Random();
+		
+	public Objects(double x, double y, int width, int height, BufferedImage sprite) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -78,9 +71,7 @@ public class Objects {
 		return e1Mask.intersects(e2Mask);
 	}
 	
-	public void tick () {
-		
-	}
+	public void tick () {};
 	
 	public void render (Graphics g) {
 		g.drawImage(sprite, (int)this.getX(), (int)this.getY(), null);

@@ -5,10 +5,10 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class imageSheet {
+public class ImageSheet {
 	private BufferedImage imagesheet;
 	
-	public imageSheet(String path) {
+	public ImageSheet(String path) {
 		try {
 			imagesheet = ImageIO.read(getClass().getResource(path));
 		} catch (IOException e) {

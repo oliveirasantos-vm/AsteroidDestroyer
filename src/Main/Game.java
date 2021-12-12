@@ -16,7 +16,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
-import Graphics.imageSheet;
+import Graphics.ImageSheet;
 import Objects.Objects;
 import Objects.Player;
 
@@ -30,12 +30,15 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	
 	public static BufferedImage image;
 	
-	public static imageSheet spritesheet;
+	public static ImageSheet spritesheet;
+	public static ImageSheet enemysheet;
 	
 	public static List<Objects> objects;
 	
 	public static Player player;
-	public static Object asteroid;
+	public static EnemySpawn enemyspawn;
+	
+
 	
 	public Game() {
 		addKeyListener(this);
@@ -48,10 +51,14 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		
 		objects = new ArrayList<Objects>();
 		
-		spritesheet = new imageSheet("/spritesheet.png");
-		player = new Player((Game.WIDTH/2)-24,Game.HEIGHT-64,0,0,Objects.players[7]);
+		spritesheet = new ImageSheet("/spritesheet.png");
+		player = new Player((Game.WIDTH/2)-24,Game.HEIGHT-64,0,0, Player.players[7]);
+		
+		enemysheet = new ImageSheet("/enemysheet.png");
 		
 		objects.add(player);
+		
+		enemyspawn = new EnemySpawn();
 		
 	}
 	
@@ -90,6 +97,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			Objects e = objects.get(i);
 			e.tick();
 		}
+		enemyspawn.tick();
 	}
 	
 	public void render() {
@@ -192,14 +200,23 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		if(e.getKeyCode() == KeyEvent.VK_D)
+			player.right = true;
+		if(e.getKeyCode() == KeyEvent.VK_A)
+			player.left = true;
+		if(e.getKeyCode() == KeyEvent.VK_SPACE)
+			player.shoting = true;
+	
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		if(e.getKeyCode() == KeyEvent.VK_D)
+			player.right = false;
+		if(e.getKeyCode() == KeyEvent.VK_A)
+			player.left = false;
+		if(e.getKeyCode() == KeyEvent.VK_SPACE)
+			player.shoting = false;
 	}
 
 }
