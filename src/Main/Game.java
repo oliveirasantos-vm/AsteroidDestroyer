@@ -3,7 +3,9 @@ package Main;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -51,6 +53,12 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static UI ui;
 	
 	public static int score = 0;
+	
+	public static String gameState = "NORMAL";
+	private boolean showMessageGameOver = true;
+	private int framesGameOver = 0;
+	
+	private boolean restartGame = false;
 	
 	
 	public Game() {
@@ -116,24 +124,41 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	}
 	
 	public void tick() {
-		for(int i = 0; i < objects.size(); i++) {
-			Objects e = objects.get(i);
-			e.tick();
+		if(gameState == "NORMAL") {
+			this.restartGame = false;
+			for(int i = 0; i < objects.size(); i++) {
+				Objects e = objects.get(i);
+				e.tick();
+			}
+			enemyspawn.tick();
+			
+			backy[0]-=backySpeed;
+			
+			if(backy[0] + 720 <= 0) {
+				backy[0] = 720;
+			}
+			
+			backy[1]-=backySpeed;
+			if(backy[1] + 720 <= 0) {
+				backy[1] = 720;
+			}
+			
+			ui.tick();
+		} else if(gameState == "GAME_OVER") {
+			this.framesGameOver++;
+			if(this.framesGameOver == 30) {
+				this.framesGameOver = 0;
+				if(this.showMessageGameOver)
+					this.showMessageGameOver = false;
+				else
+					this.showMessageGameOver = true;
+			}
+			
+			if(restartGame) {
+				this.restartGame = false;
+				this.gameState = "NORMAL";
+			}
 		}
-		enemyspawn.tick();
-		
-		backy[0]-=backySpeed;
-		
-		if(backy[0] + 720 <= 0) {
-			backy[0] = 720;
-		}
-		
-		backy[1]-=backySpeed;
-		if(backy[1] + 720 <= 0) {
-			backy[1] = 720;
-		}
-		
-		ui.tick();
 	}
 	
 	public void render() {
@@ -157,6 +182,22 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		}
 		
 		ui.render(g);
+		
+		if(gameState == "GAME_OVER") {
+			Graphics2D g2 = (Graphics2D) g;
+			g2.setColor(new Color(100, 100, 100, 100));
+			g2.fillRect(0, 0, WIDTH, HEIGHT);
+			
+			g.setFont(new Font("Consolas", Font.BOLD, 56));
+			g.setColor(Color.white);
+			g.drawString("GAME OVER", WIDTH/4-18, HEIGHT/2);
+			
+			g.setFont(new Font("Consolas", Font.BOLD, 22));
+			g.setColor(Color.white);
+			if(showMessageGameOver)
+			g.drawString("Pressione 'ENTER' para recomeçar", 48, HEIGHT/2 + 64);
+			
+		}
 		
 		g.dispose();
 		g = bs.getDrawGraphics();
@@ -247,6 +288,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			player.left = true;
 		if(e.getKeyCode() == KeyEvent.VK_SPACE)
 			player.shoting = true;
+		if(e.getKeyCode() == KeyEvent.VK_ENTER)
+			this.restartGame = true;
 	
 	}
 
@@ -258,6 +301,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			player.left = false;
 		if(e.getKeyCode() == KeyEvent.VK_SPACE)
 			player.shoting = false;
+		if(e.getKeyCode() == KeyEvent.VK_ENTER)
+			this.restartGame = false;
 	}
 
 }

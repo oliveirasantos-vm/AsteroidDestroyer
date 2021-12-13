@@ -2,7 +2,10 @@ package Objects;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
+import Graphics.ImageSheet;
+import Graphics.UI;
 import Main.Game;
 
 public class Player extends Objects	 {
@@ -38,6 +41,19 @@ public class Player extends Objects	 {
 			x = Game.WIDTH - 48;
 		else if(x <= 0)
 			x = 0;
+		
+		if(life == 0) {
+			life = 4;
+			Game.score = 0;
+			Game.objects = new ArrayList<Objects>();
+			Game.playersheet = new ImageSheet("/playersheet.png");
+			Game.player = new Player((Game.WIDTH/2)-24,Game.HEIGHT-64,0,0, Player.player);
+			Game.objects.add(Game.player);
+			Game.ui = new UI();
+			Game.gameState = "GAME_OVER";
+			System.out.println("GAME OVER");
+			return;
+		}
 		
 		if(shoting) {
 			shoting = false;
