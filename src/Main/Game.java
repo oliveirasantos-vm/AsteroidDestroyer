@@ -33,7 +33,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	
 	public static BufferedImage image;
 	
-	public static ImageSheet spritesheet;
+	public static ImageSheet playersheet;
 	public static ImageSheet enemysheet;
 	public static ImageSheet lifesheet;
 	
@@ -64,8 +64,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		
 		objects = new ArrayList<Objects>();
 		
-		spritesheet = new ImageSheet("/spritesheet.png");
-		player = new Player((Game.WIDTH/2)-24,Game.HEIGHT-64,0,0, Player.players[7]);
+		playersheet = new ImageSheet("/playersheet.png");
+		player = new Player((Game.WIDTH/2)-24,Game.HEIGHT-64,0,0, Player.player);
 		
 		enemysheet = new ImageSheet("/enemysheet.png");
 		lifesheet = new ImageSheet("/lifesheet.png");

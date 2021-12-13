@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import Main.Game;
 
 public class Enemy extends Objects{
+	
+
 
 	public double speed = Objects.rand.nextInt(9-3)+1;
 	
@@ -31,6 +33,8 @@ public class Enemy extends Objects{
 					life--;
 					Game.objects.remove(e);
 					if(life == 0) {
+						Explosion explosion = new Explosion(x, y, 48, 48, null);
+						Game.objects.add(explosion);
 						Game.score += 100;
 						Game.objects.remove(this);
 					}
