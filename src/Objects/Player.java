@@ -20,6 +20,8 @@ public class Player extends Objects	 {
 	public double speed = 4.8;
 	public static boolean shoting = false;
 	
+	public static int life = 4;
+	
 	public Player(double x, double y, int widht, int height, BufferedImage sprite) {
 		super(x, y, widht, height, sprite);
 	}

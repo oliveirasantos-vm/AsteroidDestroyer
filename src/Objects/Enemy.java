@@ -19,6 +19,7 @@ public class Enemy extends Objects{
 		y+=speed;
 		if(y >= Game.HEIGHT) {
 			Game.objects.remove(this);
+			Player.life -= 1;
 			return;
 		}
 		for(int i = 0; i < Game.objects.size(); i++) {
@@ -30,6 +31,7 @@ public class Enemy extends Objects{
 					life--;
 					Game.objects.remove(e);
 					if(life == 0) {
+						Game.score += 100;
 						Game.objects.remove(this);
 					}
 				}

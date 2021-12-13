@@ -19,6 +19,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import Graphics.ImageSheet;
+import Graphics.UI;
 import Objects.Objects;
 import Objects.Player;
 
@@ -34,6 +35,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	
 	public static ImageSheet spritesheet;
 	public static ImageSheet enemysheet;
+	public static ImageSheet lifesheet;
 	
 	public static List<Objects> objects;
 	
@@ -47,6 +49,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public int backySpeed = 4;
 	
 	public static UI ui;
+	
+	public static int score = 0;
 	
 	
 	public Game() {
@@ -64,6 +68,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		player = new Player((Game.WIDTH/2)-24,Game.HEIGHT-64,0,0, Player.players[7]);
 		
 		enemysheet = new ImageSheet("/enemysheet.png");
+		lifesheet = new ImageSheet("/lifesheet.png");
 		
 		objects.add(player);
 		
@@ -127,6 +132,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		if(backy[1] + 720 <= 0) {
 			backy[1] = 720;
 		}
+		
+		ui.tick();
 	}
 	
 	public void render() {
@@ -148,6 +155,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			Objects e = objects.get(i);
 			e.render(g);
 		}
+		
+		ui.render(g);
 		
 		g.dispose();
 		g = bs.getDrawGraphics();
