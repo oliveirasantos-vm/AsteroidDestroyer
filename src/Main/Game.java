@@ -11,9 +11,11 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import Graphics.ImageSheet;
@@ -38,7 +40,14 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static Player player;
 	public static EnemySpawn enemyspawn;
 	
-
+	private BufferedImage gameBackground;
+	private BufferedImage gameBackground2;
+	
+	public int backy[] = {0, 720};
+	public int backySpeed = 4;
+	
+	public static UI ui;
+	
 	
 	public Game() {
 		addKeyListener(this);
@@ -59,6 +68,15 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		objects.add(player);
 		
 		enemyspawn = new EnemySpawn();
+		
+		ui = new UI();
+		
+		try {
+			gameBackground = ImageIO.read(getClass().getResource("/background.jpg"));
+			gameBackground2 = ImageIO.read(getClass().getResource("/background.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -98,6 +116,17 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			e.tick();
 		}
 		enemyspawn.tick();
+		
+		backy[0]-=backySpeed;
+		
+		if(backy[0] + 720 <= 0) {
+			backy[0] = 720;
+		}
+		
+		backy[1]-=backySpeed;
+		if(backy[1] + 720 <= 0) {
+			backy[1] = 720;
+		}
 	}
 	
 	public void render() {
@@ -111,6 +140,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		Graphics g = image.getGraphics();
 		g.setColor(new Color(0,0,0));
 		g.fillRect(0, 0, (Game.WIDTH),(Game.HEIGHT));
+		
+		g.drawImage(gameBackground, 0, backy[0], null);
+		g.drawImage(gameBackground2, 0, backy[1], null);
 		
 		for(int i = 0; i < objects.size(); i++) {
 			Objects e = objects.get(i);
